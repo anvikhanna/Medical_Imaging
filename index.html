@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ML API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+ <div class="login">
+  <h1>Predict Abnormality Analysis</h1>
+  
+    <form id="form" action="#" method="post">
+    	<input type="text" name="name" placeholder="Full name" required="required" />
+      <input type="text" name="age" placeholder="Age" required="required" />
+      <input type="file" id="name" name="image" accept="image/*" />
+
+      <button id="submit" type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+ </div>
+
+ <script>
+   (function(){
+    var form = document.getElementById('form');
+    var fileSelect = document.getElementById('name');
+    var uploadButton = document.getElementById('submit');
+
+    form.onsubmit = function(event) {
+        event.preventDefault();
+        var files = fileSelect.files;
+        var formData = new FormData();
+        var file = files[0]; 
+        let url = "http://localhost:5000/api"
+
+        formData.append('imageFile', file, file.name);
+
+        var xhr = new XMLHttpRequest();
+
+        // Open the connection.
+        xhr.open('POST', url, true);
+
+
+        // Set up a handler for when the task for the request is complete.
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            console.log("Works !")
+          } else {
+            console.error("Does not work! :(")
+          }
+        };
+
+        // Send the data.
+        xhr.send(formData);
+    }
+})();
+ </script>
+
+</body>
+</html>
